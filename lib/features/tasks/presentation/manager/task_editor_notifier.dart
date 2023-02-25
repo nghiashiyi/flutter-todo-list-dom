@@ -25,44 +25,79 @@ class TaskEditorNotifier extends StateNotifier<TaskEditorState> {
 
   void saveEditor({
     String? title,
-    int? priority,
+    String? priority,
     String? content,
   }) async {
     assert(state.isEditMode);
-    final currentState = state;
-    if (currentState is TaskEditorEditingState) {
-      final response = await updateTaskUseCase(UpdateTaskParams(
-        id: currentState.initialTodo!.id,
-        title: title,
-        priority: priority,
-        content: content,
-      ));
-      response.fold((failure) {
-        state = TaskEditorState.savedFailed(error: failure.message);
-      }, (succeeded) {
-        state = const TaskEditorState.saved();
-      });
+    if (title == null) {
+      state = const TaskEditorState.savedFailed(error: "Please fill title");
+      return;
     }
+    if (priority == null) {
+      state = const TaskEditorState.savedFailed(
+          error: "Please don't leave priority field empty");
+      return;
+    }
+    final priorityNum = int.tryParse(priority);
+    if (priorityNum == null) {
+      state =
+          const TaskEditorState.savedFailed(error: "Invalid priority input");
+      return;
+    }
+    if (priorityNum > 10) {
+      state = const TaskEditorState.savedFailed(
+          error: "Priority only accepts from 1-10");
+      return;
+    }
+    final initialTodo = (state as TaskEditorEditingState).initialTodo!;
+    final response = await updateTaskUseCase(UpdateTaskParams(
+      id: initialTodo.id,
+      title: title,
+      priority: priorityNum,
+      content: content,
+    ));
+    response.fold((failure) {
+      state = TaskEditorState.savedFailed(error: failure.message);
+    }, (succeeded) {
+      state = const TaskEditorState.saved();
+    });
   }
 
   void createNew({
-    required String title,
-    required int priority,
+    String? title,
+    String? priority,
     String? content,
   }) async {
     assert(!state.isEditMode);
-    final currentState = state;
-    if (currentState is TaskEditorEditingState) {
-      final response = await createTaskUseCase(CreateNewTaskParams(
-        title: title,
-        priority: priority,
-        content: content,
-      ));
-      response.fold((failure) {
-        state = TaskEditorState.savedFailed(error: failure.message);
-      }, (succeeded) {
-        state = const TaskEditorState.saved();
-      });
+    if (title == null) {
+      state = const TaskEditorState.savedFailed(error: "Please fill title");
+      return;
     }
+    if (priority == null) {
+      state = const TaskEditorState.savedFailed(
+          error: "Please don't leave priority field empty");
+      return;
+    }
+    final priorityNum = int.tryParse(priority);
+    if (priorityNum == null) {
+      state =
+          const TaskEditorState.savedFailed(error: "Invalid priority input");
+      return;
+    }
+    if (priorityNum > 10) {
+      state = const TaskEditorState.savedFailed(
+          error: "Priority only accepts from 1-10");
+      return;
+    }
+    final response = await createTaskUseCase(CreateNewTaskParams(
+      title: title,
+      priority: priorityNum,
+      content: content,
+    ));
+    response.fold((failure) {
+      state = TaskEditorState.savedFailed(error: failure.message);
+    }, (succeeded) {
+      state = const TaskEditorState.saved();
+    });
   }
 }
