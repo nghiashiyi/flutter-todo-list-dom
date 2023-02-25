@@ -16,9 +16,9 @@ final taskEditorProvider = StateNotifierProvider.family
 class TaskEditorNotifier extends StateNotifier<TaskEditorState> {
   final CreateNewTask createTaskUseCase;
   final UpdateTask updateTaskUseCase;
-
+  final Todo? initialTodo;
   TaskEditorNotifier({
-    Todo? initialTodo,
+    this.initialTodo,
     required this.createTaskUseCase,
     required this.updateTaskUseCase,
   }) : super(TaskEditorState.editing(initialTodo: initialTodo));
@@ -30,28 +30,36 @@ class TaskEditorNotifier extends StateNotifier<TaskEditorState> {
   }) async {
     assert(state.isEditMode);
     if (title == null) {
-      state = const TaskEditorState.savedFailed(error: "Please fill title");
+      state = TaskEditorState.savedFailed(
+        error: "Please fill title",
+        initialTodo: initialTodo,
+      );
       return;
     }
     if (priority == null) {
-      state = const TaskEditorState.savedFailed(
-          error: "Please don't leave priority field empty");
+      state = TaskEditorState.savedFailed(
+        error: "Please don't leave priority field empty",
+        initialTodo: initialTodo,
+      );
       return;
     }
     final priorityNum = int.tryParse(priority);
     if (priorityNum == null) {
-      state =
-          const TaskEditorState.savedFailed(error: "Invalid priority input");
+      state = TaskEditorState.savedFailed(
+        error: "Invalid priority input",
+        initialTodo: initialTodo,
+      );
       return;
     }
     if (priorityNum > 10) {
-      state = const TaskEditorState.savedFailed(
-          error: "Priority only accepts from 1-10");
+      state = TaskEditorState.savedFailed(
+        error: "Priority only accepts from 1-10",
+        initialTodo: initialTodo,
+      );
       return;
     }
-    final initialTodo = (state as TaskEditorEditingState).initialTodo!;
     final response = await updateTaskUseCase(UpdateTaskParams(
-      id: initialTodo.id,
+      id: initialTodo!.id,
       title: title,
       priority: priorityNum,
       content: content,

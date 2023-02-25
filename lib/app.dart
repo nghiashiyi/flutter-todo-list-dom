@@ -4,6 +4,7 @@ import 'package:flutter_todo_list_dom/core/mixin/after_layout_mixin.dart';
 import 'package:flutter_todo_list_dom/features/tasks/presentation/manager/task_list_notifier.dart';
 import 'package:flutter_todo_list_dom/features/tasks/presentation/manager/task_list_state.dart';
 import 'package:flutter_todo_list_dom/features/tasks/presentation/widgets/task_creation_popup.dart';
+import 'package:flutter_todo_list_dom/features/tasks/presentation/widgets/task_editing_popup.dart';
 import 'package:intl/intl.dart';
 
 class MyHomePage extends ConsumerStatefulWidget {
@@ -99,6 +100,15 @@ class _MyHomePageState extends ConsumerState<MyHomePage> with AfterLayoutMixin {
                         final task = tasks[index];
 
                         return ListTile(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return TaskEditingPopup(
+                                    task: task,
+                                  );
+                                });
+                          },
                           leading: Checkbox(
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,
@@ -116,13 +126,15 @@ class _MyHomePageState extends ConsumerState<MyHomePage> with AfterLayoutMixin {
                             overflow: TextOverflow.ellipsis,
                           ),
                           subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "Created at: ${DateFormat("dd-MM-yyyy").format(task.createdAt)}",
-                                maxLines: 1,
-                                style: const TextStyle(fontStyle: FontStyle.italic)
-                              ),
+                                  "Created at: ${DateFormat("dd-MM-yyyy").format(task.createdAt)}",
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 10)),
                               Text(
                                 task.content ?? "-",
                                 maxLines: 5,
