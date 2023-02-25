@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_todo_list_dom/app.dart';
 import 'package:flutter_todo_list_dom/di.dart';
 import 'package:flutter_todo_list_dom/features/tasks/data/models/todo_model.dart';
@@ -8,7 +9,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TodoModelAdapter());
   await setupLocator();
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
