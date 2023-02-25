@@ -1,4 +1,6 @@
+import 'package:flutter_todo_list_dom/features/tasks/data/models/todo_model.dart';
 import 'package:flutter_todo_list_dom/features/tasks/domain/entities/todo.dart';
+import 'package:hive/hive.dart';
 
 abstract class TaskLocalDatasource {
   Future<bool> createTask({required Todo todo});
@@ -14,16 +16,20 @@ abstract class TaskLocalDatasource {
 }
 
 class TaskLocalDatasourceImpl implements TaskLocalDatasource {
+  final Box<TodoModel> taskBox;
+
+  TaskLocalDatasourceImpl({required this.taskBox});
+
   @override
   Future<bool> createTask({required Todo todo}) async {
-    // TODO: implement createTask
-    throw UnimplementedError();
+    await taskBox.put(todo.id, todo.toModel());
+    return true;
   }
 
   @override
   Future<bool> deleteTask({required String id}) async {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+    await taskBox.delete(id);
+    return true;
   }
 
   @override
@@ -32,7 +38,16 @@ class TaskLocalDatasourceImpl implements TaskLocalDatasource {
       String? content,
       int? priority,
       required String id}) async {
-    // TODO: implement updateTask
-    throw UnimplementedError();
+    final todo = taskBox.get(id);
+    if (todo == null) {
+      throw Exception("Can not find todo with id $id");
+    }
+    final updatedTodo = todo.copyWith(
+      title: title,
+      content: content,
+      priority: priority,
+    );
+    await taskBox.put(todo.id, updatedTodo.toModel());
+    return updatedTodo;
   }
 }
