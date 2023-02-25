@@ -60,4 +60,16 @@ class TaskRepositoryImpl implements TaskRepository {
       return Left(Failure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Todo>>> getTasks() async {
+    try {
+      final todo = await taskLocalDatasource.getTasks();
+      return Right(todo);
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return Left(Failure(e.toString()));
+    }
+  }
 }

@@ -11,6 +11,8 @@ abstract class TaskRepository {
 
   Future<Either<Failure, bool>> deleteTask({required String id});
 
+  Future<Either<Failure, List<Todo>>> getTasks();
+
   Future<Either<Failure, Todo>> updateTask({
     String? title,
     String? content,

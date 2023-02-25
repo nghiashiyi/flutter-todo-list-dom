@@ -7,6 +7,8 @@ abstract class TaskLocalDatasource {
 
   Future<bool> deleteTask({required String id});
 
+  Future<List<Todo>> getTasks();
+
   Future<Todo> updateTask({
     String? title,
     String? content,
@@ -49,5 +51,15 @@ class TaskLocalDatasourceImpl implements TaskLocalDatasource {
     );
     await taskBox.put(todo.id, updatedTodo.toModel());
     return updatedTodo;
+  }
+
+  @override
+  Future<List<Todo>> getTasks() async {
+    final tasks = taskBox.keys
+        .map((key) => taskBox.get(key))
+        .where((record) => record != null)
+        .map((record) => record!)
+        .toList();
+    return tasks;
   }
 }

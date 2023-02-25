@@ -4,6 +4,7 @@ import 'package:flutter_todo_list_dom/features/tasks/data/repositories/task_repo
 import 'package:flutter_todo_list_dom/features/tasks/domain/repositories/task_repository.dart';
 import 'package:flutter_todo_list_dom/features/tasks/domain/use_cases/create_task.dart';
 import 'package:flutter_todo_list_dom/features/tasks/domain/use_cases/delete_task.dart';
+import 'package:flutter_todo_list_dom/features/tasks/domain/use_cases/get_tasks.dart';
 import 'package:flutter_todo_list_dom/features/tasks/domain/use_cases/update_task.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -15,6 +16,7 @@ Future<void> setupLocator() async {
   get.registerLazySingleton(() => CreateNewTask(repository: get()));
   get.registerLazySingleton(() => UpdateTask(repository: get()));
   get.registerLazySingleton(() => DeleteTask(repository: get()));
+  get.registerLazySingleton(() => GetTasks(repository: get()));
 
   /// Repository
   get.registerLazySingleton<TaskRepository>(
