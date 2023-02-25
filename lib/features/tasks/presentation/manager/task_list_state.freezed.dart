@@ -21,6 +21,7 @@ mixin _$TaskListState {
     required TResult Function() uninitialized,
     required TResult Function() loading,
     required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(String error) loadedFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$TaskListState {
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
     TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(String error)? loadedFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$TaskListState {
     TResult Function()? uninitialized,
     TResult Function()? loading,
     TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$TaskListState {
     required TResult Function(TaskListUninitializedState value) uninitialized,
     required TResult Function(TaskListLoadingState value) loading,
     required TResult Function(TaskListLoadedState value) loaded,
+    required TResult Function(TaskListLoadedFailedState value) loadedFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$TaskListState {
     TResult? Function(TaskListUninitializedState value)? uninitialized,
     TResult? Function(TaskListLoadingState value)? loading,
     TResult? Function(TaskListLoadedState value)? loaded,
+    TResult? Function(TaskListLoadedFailedState value)? loadedFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$TaskListState {
     TResult Function(TaskListUninitializedState value)? uninitialized,
     TResult Function(TaskListLoadingState value)? loading,
     TResult Function(TaskListLoadedState value)? loaded,
+    TResult Function(TaskListLoadedFailedState value)? loadedFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -124,6 +130,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
     required TResult Function() uninitialized,
     required TResult Function() loading,
     required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(String error) loadedFailed,
   }) {
     return uninitialized();
   }
@@ -134,6 +141,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
     TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(String error)? loadedFailed,
   }) {
     return uninitialized?.call();
   }
@@ -144,6 +152,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
     TResult Function()? uninitialized,
     TResult Function()? loading,
     TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) {
     if (uninitialized != null) {
@@ -158,6 +167,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
     required TResult Function(TaskListUninitializedState value) uninitialized,
     required TResult Function(TaskListLoadingState value) loading,
     required TResult Function(TaskListLoadedState value) loaded,
+    required TResult Function(TaskListLoadedFailedState value) loadedFailed,
   }) {
     return uninitialized(this);
   }
@@ -168,6 +178,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
     TResult? Function(TaskListUninitializedState value)? uninitialized,
     TResult? Function(TaskListLoadingState value)? loading,
     TResult? Function(TaskListLoadedState value)? loaded,
+    TResult? Function(TaskListLoadedFailedState value)? loadedFailed,
   }) {
     return uninitialized?.call(this);
   }
@@ -178,6 +189,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
     TResult Function(TaskListUninitializedState value)? uninitialized,
     TResult Function(TaskListLoadingState value)? loading,
     TResult Function(TaskListLoadedState value)? loaded,
+    TResult Function(TaskListLoadedFailedState value)? loadedFailed,
     required TResult orElse(),
   }) {
     if (uninitialized != null) {
@@ -232,6 +244,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
     required TResult Function() uninitialized,
     required TResult Function() loading,
     required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(String error) loadedFailed,
   }) {
     return loading();
   }
@@ -242,6 +255,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
     TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(String error)? loadedFailed,
   }) {
     return loading?.call();
   }
@@ -252,6 +266,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
     TResult Function()? uninitialized,
     TResult Function()? loading,
     TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -266,6 +281,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
     required TResult Function(TaskListUninitializedState value) uninitialized,
     required TResult Function(TaskListLoadingState value) loading,
     required TResult Function(TaskListLoadedState value) loaded,
+    required TResult Function(TaskListLoadedFailedState value) loadedFailed,
   }) {
     return loading(this);
   }
@@ -276,6 +292,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
     TResult? Function(TaskListUninitializedState value)? uninitialized,
     TResult? Function(TaskListLoadingState value)? loading,
     TResult? Function(TaskListLoadedState value)? loaded,
+    TResult? Function(TaskListLoadedFailedState value)? loadedFailed,
   }) {
     return loading?.call(this);
   }
@@ -286,6 +303,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
     TResult Function(TaskListUninitializedState value)? uninitialized,
     TResult Function(TaskListLoadingState value)? loading,
     TResult Function(TaskListLoadedState value)? loaded,
+    TResult Function(TaskListLoadedFailedState value)? loadedFailed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -374,6 +392,7 @@ class _$TaskListLoadedState implements TaskListLoadedState {
     required TResult Function() uninitialized,
     required TResult Function() loading,
     required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(String error) loadedFailed,
   }) {
     return loaded(tasks);
   }
@@ -384,6 +403,7 @@ class _$TaskListLoadedState implements TaskListLoadedState {
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
     TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(String error)? loadedFailed,
   }) {
     return loaded?.call(tasks);
   }
@@ -394,6 +414,7 @@ class _$TaskListLoadedState implements TaskListLoadedState {
     TResult Function()? uninitialized,
     TResult Function()? loading,
     TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -408,6 +429,7 @@ class _$TaskListLoadedState implements TaskListLoadedState {
     required TResult Function(TaskListUninitializedState value) uninitialized,
     required TResult Function(TaskListLoadingState value) loading,
     required TResult Function(TaskListLoadedState value) loaded,
+    required TResult Function(TaskListLoadedFailedState value) loadedFailed,
   }) {
     return loaded(this);
   }
@@ -418,6 +440,7 @@ class _$TaskListLoadedState implements TaskListLoadedState {
     TResult? Function(TaskListUninitializedState value)? uninitialized,
     TResult? Function(TaskListLoadingState value)? loading,
     TResult? Function(TaskListLoadedState value)? loaded,
+    TResult? Function(TaskListLoadedFailedState value)? loadedFailed,
   }) {
     return loaded?.call(this);
   }
@@ -428,6 +451,7 @@ class _$TaskListLoadedState implements TaskListLoadedState {
     TResult Function(TaskListUninitializedState value)? uninitialized,
     TResult Function(TaskListLoadingState value)? loading,
     TResult Function(TaskListLoadedState value)? loaded,
+    TResult Function(TaskListLoadedFailedState value)? loadedFailed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -445,4 +469,152 @@ abstract class TaskListLoadedState implements TaskListState {
   @JsonKey(ignore: true)
   _$$TaskListLoadedStateCopyWith<_$TaskListLoadedState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TaskListLoadedFailedStateCopyWith<$Res> {
+  factory _$$TaskListLoadedFailedStateCopyWith(
+          _$TaskListLoadedFailedState value,
+          $Res Function(_$TaskListLoadedFailedState) then) =
+      __$$TaskListLoadedFailedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$TaskListLoadedFailedStateCopyWithImpl<$Res>
+    extends _$TaskListStateCopyWithImpl<$Res, _$TaskListLoadedFailedState>
+    implements _$$TaskListLoadedFailedStateCopyWith<$Res> {
+  __$$TaskListLoadedFailedStateCopyWithImpl(_$TaskListLoadedFailedState _value,
+      $Res Function(_$TaskListLoadedFailedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$TaskListLoadedFailedState(
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$TaskListLoadedFailedState implements TaskListLoadedFailedState {
+  const _$TaskListLoadedFailedState({required this.error});
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'TaskListState.loadedFailed(error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TaskListLoadedFailedState &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TaskListLoadedFailedStateCopyWith<_$TaskListLoadedFailedState>
+      get copyWith => __$$TaskListLoadedFailedStateCopyWithImpl<
+          _$TaskListLoadedFailedState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() uninitialized,
+    required TResult Function() loading,
+    required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(String error) loadedFailed,
+  }) {
+    return loadedFailed(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? uninitialized,
+    TResult? Function()? loading,
+    TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(String error)? loadedFailed,
+  }) {
+    return loadedFailed?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? uninitialized,
+    TResult Function()? loading,
+    TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(String error)? loadedFailed,
+    required TResult orElse(),
+  }) {
+    if (loadedFailed != null) {
+      return loadedFailed(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TaskListUninitializedState value) uninitialized,
+    required TResult Function(TaskListLoadingState value) loading,
+    required TResult Function(TaskListLoadedState value) loaded,
+    required TResult Function(TaskListLoadedFailedState value) loadedFailed,
+  }) {
+    return loadedFailed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TaskListUninitializedState value)? uninitialized,
+    TResult? Function(TaskListLoadingState value)? loading,
+    TResult? Function(TaskListLoadedState value)? loaded,
+    TResult? Function(TaskListLoadedFailedState value)? loadedFailed,
+  }) {
+    return loadedFailed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TaskListUninitializedState value)? uninitialized,
+    TResult Function(TaskListLoadingState value)? loading,
+    TResult Function(TaskListLoadedState value)? loaded,
+    TResult Function(TaskListLoadedFailedState value)? loadedFailed,
+    required TResult orElse(),
+  }) {
+    if (loadedFailed != null) {
+      return loadedFailed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TaskListLoadedFailedState implements TaskListState {
+  const factory TaskListLoadedFailedState({required final String error}) =
+      _$TaskListLoadedFailedState;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$TaskListLoadedFailedStateCopyWith<_$TaskListLoadedFailedState>
+      get copyWith => throw _privateConstructorUsedError;
 }

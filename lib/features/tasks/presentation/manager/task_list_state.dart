@@ -7,13 +7,23 @@ abstract class TaskListState with _$TaskListState {
   const factory TaskListState.uninitialized() = TaskListUninitializedState;
   const factory TaskListState.loading() = TaskListLoadingState;
   const factory TaskListState.loaded({required List<Todo> tasks}) = TaskListLoadedState;
+  const factory TaskListState.loadedFailed({required String error}) = TaskListLoadedFailedState;
 }
 
 extension TaskListStateExtension on TaskListState {
-  // int? get totalTasks {
-  //   final currentState = this;
-  //   if (currentState is TaskListState)
-  // }
+  int? get totalTasks {
+    final currentState = this;
+    if (currentState is TaskListLoadedState) {
+      return currentState.tasks.length;
+    }
+    return null;
+  }
 
-
+  int? get completedTasks {
+    final currentState = this;
+    if (currentState is TaskListLoadedState) {
+      return currentState.tasks.where((task) => task.isCompleted).length;
+    }
+    return null;
+  }
 }
