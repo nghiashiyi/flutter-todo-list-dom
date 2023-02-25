@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_todo_list_dom/features/tasks/data/models/todo_model.dart';
 
 class Todo extends Equatable {
   final String id;
@@ -38,6 +39,16 @@ class Todo extends Equatable {
       isCompleted: isCompleted ?? this.isCompleted,
       createdAt: createdAt ?? this.createdAt,
     );
+  }
+
+  TodoModel toModel() {
+    return TodoModel(
+        id: id,
+        title: title,
+        content: content,
+        priority: priority,
+        isCompleted: isCompleted,
+        createdAt: createdAt);
   }
 
   @override
