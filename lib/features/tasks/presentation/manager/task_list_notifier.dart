@@ -33,7 +33,7 @@ class TaskListNotifier extends StateNotifier<TaskListState> {
     response.fold((failure) {
       state = TaskListState.loadedFailed(error: failure.message);
     }, (tasks) {
-      tasks.shuffle();
+      tasks.sort((task1, task2) => task2.createdAt.compareTo(task1.createdAt));
       state = TaskListState.loaded(tasks: tasks);
     });
   }

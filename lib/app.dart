@@ -53,6 +53,16 @@ class _MyHomePageState extends ConsumerState<MyHomePage> with AfterLayoutMixin {
                         final task = tasks[index];
 
                         return ListTile(
+                          leading: Checkbox(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            value: task.isCompleted,
+                            onChanged: (bool? value) {
+                              ref
+                                  .read(taskListingProvider.notifier)
+                                  .completeTask(id: task.id);
+                            },
+                          ),
                           title: Text(
                             task.title,
                             style: const TextStyle(fontWeight: FontWeight.bold),
