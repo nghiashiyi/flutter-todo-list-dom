@@ -5,9 +5,33 @@ part 'task_editor_state.freezed.dart';
 
 @freezed
 abstract class TaskEditorState with _$TaskEditorState {
-  const factory TaskEditorState.editing({Todo? initialTodo}) = TaskEditorEditingState;
-  const factory TaskEditorState.saving() = TaskEditorSavingState;
-  const factory TaskEditorState.saved() = TaskEditorSavedState;
-  const factory TaskEditorState.savedFailed({required String error}) =
-      TaskEditorSavedFailedState;
+  const factory TaskEditorState.editing({Todo? initialTodo}) =
+      TaskEditorEditingState;
+  const factory TaskEditorState.saving({Todo? initialTodo}) =
+      TaskEditorSavingState;
+  const factory TaskEditorState.saved({Todo? initialTodo}) =
+      TaskEditorSavedState;
+  const factory TaskEditorState.savedFailed({
+    required String error,
+    Todo? initialTodo,
+  }) = TaskEditorSavedFailedState;
+}
+
+extension TaskEditorStateExtension on TaskEditorState {
+  bool get isEditMode {
+    final currentState = this;
+    if (currentState is TaskEditorEditingState) {
+      return currentState.initialTodo != null;
+    }
+    if (currentState is TaskEditorSavingState) {
+      return currentState.initialTodo != null;
+    }
+    if (currentState is TaskEditorSavedState) {
+      return currentState.initialTodo != null;
+    }
+    if (currentState is TaskEditorSavedFailedState) {
+      return currentState.initialTodo != null;
+    }
+    return false;
+  }
 }

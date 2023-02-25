@@ -16,28 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TaskEditorState {
+  Todo? get initialTodo => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Todo? initialTodo) editing,
-    required TResult Function() saving,
-    required TResult Function() saved,
-    required TResult Function(String error) savedFailed,
+    required TResult Function(Todo? initialTodo) saving,
+    required TResult Function(Todo? initialTodo) saved,
+    required TResult Function(String error, Todo? initialTodo) savedFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Todo? initialTodo)? editing,
-    TResult? Function()? saving,
-    TResult? Function()? saved,
-    TResult? Function(String error)? savedFailed,
+    TResult? Function(Todo? initialTodo)? saving,
+    TResult? Function(Todo? initialTodo)? saved,
+    TResult? Function(String error, Todo? initialTodo)? savedFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Todo? initialTodo)? editing,
-    TResult Function()? saving,
-    TResult Function()? saved,
-    TResult Function(String error)? savedFailed,
+    TResult Function(Todo? initialTodo)? saving,
+    TResult Function(Todo? initialTodo)? saved,
+    TResult Function(String error, Todo? initialTodo)? savedFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -66,6 +67,10 @@ mixin _$TaskEditorState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $TaskEditorStateCopyWith<TaskEditorState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -73,6 +78,8 @@ abstract class $TaskEditorStateCopyWith<$Res> {
   factory $TaskEditorStateCopyWith(
           TaskEditorState value, $Res Function(TaskEditorState) then) =
       _$TaskEditorStateCopyWithImpl<$Res, TaskEditorState>;
+  @useResult
+  $Res call({Todo? initialTodo});
 }
 
 /// @nodoc
@@ -84,13 +91,28 @@ class _$TaskEditorStateCopyWithImpl<$Res, $Val extends TaskEditorState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? initialTodo = freezed,
+  }) {
+    return _then(_value.copyWith(
+      initialTodo: freezed == initialTodo
+          ? _value.initialTodo
+          : initialTodo // ignore: cast_nullable_to_non_nullable
+              as Todo?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$TaskEditorEditingStateCopyWith<$Res> {
+abstract class _$$TaskEditorEditingStateCopyWith<$Res>
+    implements $TaskEditorStateCopyWith<$Res> {
   factory _$$TaskEditorEditingStateCopyWith(_$TaskEditorEditingState value,
           $Res Function(_$TaskEditorEditingState) then) =
       __$$TaskEditorEditingStateCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({Todo? initialTodo});
 }
@@ -153,9 +175,9 @@ class _$TaskEditorEditingState implements TaskEditorEditingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Todo? initialTodo) editing,
-    required TResult Function() saving,
-    required TResult Function() saved,
-    required TResult Function(String error) savedFailed,
+    required TResult Function(Todo? initialTodo) saving,
+    required TResult Function(Todo? initialTodo) saved,
+    required TResult Function(String error, Todo? initialTodo) savedFailed,
   }) {
     return editing(initialTodo);
   }
@@ -164,9 +186,9 @@ class _$TaskEditorEditingState implements TaskEditorEditingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Todo? initialTodo)? editing,
-    TResult? Function()? saving,
-    TResult? Function()? saved,
-    TResult? Function(String error)? savedFailed,
+    TResult? Function(Todo? initialTodo)? saving,
+    TResult? Function(Todo? initialTodo)? saved,
+    TResult? Function(String error, Todo? initialTodo)? savedFailed,
   }) {
     return editing?.call(initialTodo);
   }
@@ -175,9 +197,9 @@ class _$TaskEditorEditingState implements TaskEditorEditingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Todo? initialTodo)? editing,
-    TResult Function()? saving,
-    TResult Function()? saved,
-    TResult Function(String error)? savedFailed,
+    TResult Function(Todo? initialTodo)? saving,
+    TResult Function(Todo? initialTodo)? saved,
+    TResult Function(String error, Todo? initialTodo)? savedFailed,
     required TResult orElse(),
   }) {
     if (editing != null) {
@@ -228,17 +250,23 @@ abstract class TaskEditorEditingState implements TaskEditorState {
   const factory TaskEditorEditingState({final Todo? initialTodo}) =
       _$TaskEditorEditingState;
 
+  @override
   Todo? get initialTodo;
+  @override
   @JsonKey(ignore: true)
   _$$TaskEditorEditingStateCopyWith<_$TaskEditorEditingState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TaskEditorSavingStateCopyWith<$Res> {
+abstract class _$$TaskEditorSavingStateCopyWith<$Res>
+    implements $TaskEditorStateCopyWith<$Res> {
   factory _$$TaskEditorSavingStateCopyWith(_$TaskEditorSavingState value,
           $Res Function(_$TaskEditorSavingState) then) =
       __$$TaskEditorSavingStateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({Todo? initialTodo});
 }
 
 /// @nodoc
@@ -248,60 +276,86 @@ class __$$TaskEditorSavingStateCopyWithImpl<$Res>
   __$$TaskEditorSavingStateCopyWithImpl(_$TaskEditorSavingState _value,
       $Res Function(_$TaskEditorSavingState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? initialTodo = freezed,
+  }) {
+    return _then(_$TaskEditorSavingState(
+      initialTodo: freezed == initialTodo
+          ? _value.initialTodo
+          : initialTodo // ignore: cast_nullable_to_non_nullable
+              as Todo?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$TaskEditorSavingState implements TaskEditorSavingState {
-  const _$TaskEditorSavingState();
+  const _$TaskEditorSavingState({this.initialTodo});
+
+  @override
+  final Todo? initialTodo;
 
   @override
   String toString() {
-    return 'TaskEditorState.saving()';
+    return 'TaskEditorState.saving(initialTodo: $initialTodo)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$TaskEditorSavingState);
+        (other.runtimeType == runtimeType &&
+            other is _$TaskEditorSavingState &&
+            (identical(other.initialTodo, initialTodo) ||
+                other.initialTodo == initialTodo));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, initialTodo);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TaskEditorSavingStateCopyWith<_$TaskEditorSavingState> get copyWith =>
+      __$$TaskEditorSavingStateCopyWithImpl<_$TaskEditorSavingState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Todo? initialTodo) editing,
-    required TResult Function() saving,
-    required TResult Function() saved,
-    required TResult Function(String error) savedFailed,
+    required TResult Function(Todo? initialTodo) saving,
+    required TResult Function(Todo? initialTodo) saved,
+    required TResult Function(String error, Todo? initialTodo) savedFailed,
   }) {
-    return saving();
+    return saving(initialTodo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Todo? initialTodo)? editing,
-    TResult? Function()? saving,
-    TResult? Function()? saved,
-    TResult? Function(String error)? savedFailed,
+    TResult? Function(Todo? initialTodo)? saving,
+    TResult? Function(Todo? initialTodo)? saved,
+    TResult? Function(String error, Todo? initialTodo)? savedFailed,
   }) {
-    return saving?.call();
+    return saving?.call(initialTodo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Todo? initialTodo)? editing,
-    TResult Function()? saving,
-    TResult Function()? saved,
-    TResult Function(String error)? savedFailed,
+    TResult Function(Todo? initialTodo)? saving,
+    TResult Function(Todo? initialTodo)? saved,
+    TResult Function(String error, Todo? initialTodo)? savedFailed,
     required TResult orElse(),
   }) {
     if (saving != null) {
-      return saving();
+      return saving(initialTodo);
     }
     return orElse();
   }
@@ -345,14 +399,26 @@ class _$TaskEditorSavingState implements TaskEditorSavingState {
 }
 
 abstract class TaskEditorSavingState implements TaskEditorState {
-  const factory TaskEditorSavingState() = _$TaskEditorSavingState;
+  const factory TaskEditorSavingState({final Todo? initialTodo}) =
+      _$TaskEditorSavingState;
+
+  @override
+  Todo? get initialTodo;
+  @override
+  @JsonKey(ignore: true)
+  _$$TaskEditorSavingStateCopyWith<_$TaskEditorSavingState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TaskEditorSavedStateCopyWith<$Res> {
+abstract class _$$TaskEditorSavedStateCopyWith<$Res>
+    implements $TaskEditorStateCopyWith<$Res> {
   factory _$$TaskEditorSavedStateCopyWith(_$TaskEditorSavedState value,
           $Res Function(_$TaskEditorSavedState) then) =
       __$$TaskEditorSavedStateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({Todo? initialTodo});
 }
 
 /// @nodoc
@@ -362,60 +428,86 @@ class __$$TaskEditorSavedStateCopyWithImpl<$Res>
   __$$TaskEditorSavedStateCopyWithImpl(_$TaskEditorSavedState _value,
       $Res Function(_$TaskEditorSavedState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? initialTodo = freezed,
+  }) {
+    return _then(_$TaskEditorSavedState(
+      initialTodo: freezed == initialTodo
+          ? _value.initialTodo
+          : initialTodo // ignore: cast_nullable_to_non_nullable
+              as Todo?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$TaskEditorSavedState implements TaskEditorSavedState {
-  const _$TaskEditorSavedState();
+  const _$TaskEditorSavedState({this.initialTodo});
+
+  @override
+  final Todo? initialTodo;
 
   @override
   String toString() {
-    return 'TaskEditorState.saved()';
+    return 'TaskEditorState.saved(initialTodo: $initialTodo)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$TaskEditorSavedState);
+        (other.runtimeType == runtimeType &&
+            other is _$TaskEditorSavedState &&
+            (identical(other.initialTodo, initialTodo) ||
+                other.initialTodo == initialTodo));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, initialTodo);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TaskEditorSavedStateCopyWith<_$TaskEditorSavedState> get copyWith =>
+      __$$TaskEditorSavedStateCopyWithImpl<_$TaskEditorSavedState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Todo? initialTodo) editing,
-    required TResult Function() saving,
-    required TResult Function() saved,
-    required TResult Function(String error) savedFailed,
+    required TResult Function(Todo? initialTodo) saving,
+    required TResult Function(Todo? initialTodo) saved,
+    required TResult Function(String error, Todo? initialTodo) savedFailed,
   }) {
-    return saved();
+    return saved(initialTodo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Todo? initialTodo)? editing,
-    TResult? Function()? saving,
-    TResult? Function()? saved,
-    TResult? Function(String error)? savedFailed,
+    TResult? Function(Todo? initialTodo)? saving,
+    TResult? Function(Todo? initialTodo)? saved,
+    TResult? Function(String error, Todo? initialTodo)? savedFailed,
   }) {
-    return saved?.call();
+    return saved?.call(initialTodo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Todo? initialTodo)? editing,
-    TResult Function()? saving,
-    TResult Function()? saved,
-    TResult Function(String error)? savedFailed,
+    TResult Function(Todo? initialTodo)? saving,
+    TResult Function(Todo? initialTodo)? saved,
+    TResult Function(String error, Todo? initialTodo)? savedFailed,
     required TResult orElse(),
   }) {
     if (saved != null) {
-      return saved();
+      return saved(initialTodo);
     }
     return orElse();
   }
@@ -459,17 +551,27 @@ class _$TaskEditorSavedState implements TaskEditorSavedState {
 }
 
 abstract class TaskEditorSavedState implements TaskEditorState {
-  const factory TaskEditorSavedState() = _$TaskEditorSavedState;
+  const factory TaskEditorSavedState({final Todo? initialTodo}) =
+      _$TaskEditorSavedState;
+
+  @override
+  Todo? get initialTodo;
+  @override
+  @JsonKey(ignore: true)
+  _$$TaskEditorSavedStateCopyWith<_$TaskEditorSavedState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TaskEditorSavedFailedStateCopyWith<$Res> {
+abstract class _$$TaskEditorSavedFailedStateCopyWith<$Res>
+    implements $TaskEditorStateCopyWith<$Res> {
   factory _$$TaskEditorSavedFailedStateCopyWith(
           _$TaskEditorSavedFailedState value,
           $Res Function(_$TaskEditorSavedFailedState) then) =
       __$$TaskEditorSavedFailedStateCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String error});
+  $Res call({String error, Todo? initialTodo});
 }
 
 /// @nodoc
@@ -485,12 +587,17 @@ class __$$TaskEditorSavedFailedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? error = null,
+    Object? initialTodo = freezed,
   }) {
     return _then(_$TaskEditorSavedFailedState(
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      initialTodo: freezed == initialTodo
+          ? _value.initialTodo
+          : initialTodo // ignore: cast_nullable_to_non_nullable
+              as Todo?,
     ));
   }
 }
@@ -498,14 +605,16 @@ class __$$TaskEditorSavedFailedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TaskEditorSavedFailedState implements TaskEditorSavedFailedState {
-  const _$TaskEditorSavedFailedState({required this.error});
+  const _$TaskEditorSavedFailedState({required this.error, this.initialTodo});
 
   @override
   final String error;
+  @override
+  final Todo? initialTodo;
 
   @override
   String toString() {
-    return 'TaskEditorState.savedFailed(error: $error)';
+    return 'TaskEditorState.savedFailed(error: $error, initialTodo: $initialTodo)';
   }
 
   @override
@@ -513,11 +622,13 @@ class _$TaskEditorSavedFailedState implements TaskEditorSavedFailedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TaskEditorSavedFailedState &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.initialTodo, initialTodo) ||
+                other.initialTodo == initialTodo));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(runtimeType, error, initialTodo);
 
   @JsonKey(ignore: true)
   @override
@@ -530,35 +641,35 @@ class _$TaskEditorSavedFailedState implements TaskEditorSavedFailedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Todo? initialTodo) editing,
-    required TResult Function() saving,
-    required TResult Function() saved,
-    required TResult Function(String error) savedFailed,
+    required TResult Function(Todo? initialTodo) saving,
+    required TResult Function(Todo? initialTodo) saved,
+    required TResult Function(String error, Todo? initialTodo) savedFailed,
   }) {
-    return savedFailed(error);
+    return savedFailed(error, initialTodo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Todo? initialTodo)? editing,
-    TResult? Function()? saving,
-    TResult? Function()? saved,
-    TResult? Function(String error)? savedFailed,
+    TResult? Function(Todo? initialTodo)? saving,
+    TResult? Function(Todo? initialTodo)? saved,
+    TResult? Function(String error, Todo? initialTodo)? savedFailed,
   }) {
-    return savedFailed?.call(error);
+    return savedFailed?.call(error, initialTodo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Todo? initialTodo)? editing,
-    TResult Function()? saving,
-    TResult Function()? saved,
-    TResult Function(String error)? savedFailed,
+    TResult Function(Todo? initialTodo)? saving,
+    TResult Function(Todo? initialTodo)? saved,
+    TResult Function(String error, Todo? initialTodo)? savedFailed,
     required TResult orElse(),
   }) {
     if (savedFailed != null) {
-      return savedFailed(error);
+      return savedFailed(error, initialTodo);
     }
     return orElse();
   }
@@ -602,10 +713,14 @@ class _$TaskEditorSavedFailedState implements TaskEditorSavedFailedState {
 }
 
 abstract class TaskEditorSavedFailedState implements TaskEditorState {
-  const factory TaskEditorSavedFailedState({required final String error}) =
-      _$TaskEditorSavedFailedState;
+  const factory TaskEditorSavedFailedState(
+      {required final String error,
+      final Todo? initialTodo}) = _$TaskEditorSavedFailedState;
 
   String get error;
+  @override
+  Todo? get initialTodo;
+  @override
   @JsonKey(ignore: true)
   _$$TaskEditorSavedFailedStateCopyWith<_$TaskEditorSavedFailedState>
       get copyWith => throw _privateConstructorUsedError;
