@@ -15,5 +15,6 @@ abstract class TaskRepository {
     String? title,
     String? content,
     int? priority,
+    required String id,
   });
 }

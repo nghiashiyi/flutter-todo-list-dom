@@ -15,6 +15,7 @@ class UpdateTask implements UseCase<Todo, UpdateTaskParams> {
       title: params.title,
       priority: params.priority,
       content: params.content,
+      id: params.id,
     );
   }
 }
@@ -23,6 +24,12 @@ class UpdateTaskParams {
   final String? title;
   final String? content;
   final int? priority;
+  final String id;
 
-  UpdateTaskParams({this.title, this.content, this.priority});
+  UpdateTaskParams({
+    this.title,
+    this.content,
+    this.priority,
+    required this.id,
+  });
 }
