@@ -26,8 +26,6 @@ Future<void> setupLocator() async {
       () => TaskLocalDatasourceImpl(taskBox: get()));
 
   /// Other services
-  final collection =
-      await BoxCollection.open('AppDatabase', {'task'}, path: './');
-  final taskBox = collection.openBox<TodoModel>('task');
-  get.registerLazySingleton(() => taskBox);
+  var box = await Hive.openBox<TodoModel>('AppDatabase');
+  get.registerLazySingleton(() => box);
 }
