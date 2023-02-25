@@ -4,6 +4,7 @@ import 'package:flutter_todo_list_dom/core/mixin/after_layout_mixin.dart';
 import 'package:flutter_todo_list_dom/features/tasks/presentation/manager/task_list_notifier.dart';
 import 'package:flutter_todo_list_dom/features/tasks/presentation/manager/task_list_state.dart';
 import 'package:flutter_todo_list_dom/features/tasks/presentation/widgets/task_creation_popup.dart';
+import 'package:intl/intl.dart';
 
 class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -17,7 +18,7 @@ class MyHomePage extends ConsumerStatefulWidget {
 class _MyHomePageState extends ConsumerState<MyHomePage> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) {
-    ref.read(taskListingProvider.notifier).loadOrRefreshTask();
+    ref.read(taskListingProvider.notifier).loadTasks();
   }
 
   @override
@@ -26,6 +27,51 @@ class _MyHomePageState extends ConsumerState<MyHomePage> with AfterLayoutMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        leading: taskListState is TaskListLoadedState && taskListState.isSorting
+            ? IconButton(
+                onPressed: () {
+                  ref.read(taskListingProvider.notifier).refresh();
+                },
+                icon: const Icon(Icons.refresh),
+              )
+            : null,
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final sortingResult = await showDialog<String?>(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                              onPressed: () =>
+                                  Navigator.of(context).pop("priority"),
+                              child: const Text("Sort by priority")),
+                          TextButton(
+                              onPressed: () =>
+                                  Navigator.of(context).pop("title"),
+                              child: const Text("Sort by title")),
+                        ],
+                      ),
+                    );
+                  });
+              if (sortingResult == null) {
+                return;
+              }
+              switch (sortingResult) {
+                case "priority":
+                  ref.read(taskListingProvider.notifier).sortTasksByPriority();
+                  break;
+                case "title":
+                  ref.read(taskListingProvider.notifier).sortTasksByName();
+                  break;
+              }
+            },
+            icon: const Icon(Icons.sort),
+          )
+        ],
       ),
       body: Center(
         child: Column(
@@ -69,10 +115,20 @@ class _MyHomePageState extends ConsumerState<MyHomePage> with AfterLayoutMixin {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          subtitle: Text(
-                            task.content ?? "-",
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
+                          subtitle: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Created at: ${DateFormat("dd-MM-yyyy").format(task.createdAt)}",
+                                maxLines: 1,
+                                style: const TextStyle(fontStyle: FontStyle.italic)
+                              ),
+                              Text(
+                                task.content ?? "-",
+                                maxLines: 5,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,

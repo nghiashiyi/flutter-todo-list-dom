@@ -27,7 +27,7 @@ class TaskListNotifier extends StateNotifier<TaskListState> {
     required this.getTasksUseCase,
   }) : super(const TaskListState.uninitialized());
 
-  void loadOrRefreshTask() async {
+  void loadTasks() async {
     state = const TaskListState.loading();
     final response = await getTasksUseCase(NoParams());
     response.fold((failure) {
@@ -44,7 +44,7 @@ class TaskListNotifier extends StateNotifier<TaskListState> {
       final currentTasks = List<Todo>.from(currentState.tasks);
       currentTasks
           .sort((task1, task2) => task2.priority.compareTo(task1.priority));
-      state = TaskListState.loaded(tasks: currentTasks);
+      state = TaskListState.loaded(tasks: currentTasks, isSorting: true);
     }
   }
 
@@ -53,7 +53,16 @@ class TaskListNotifier extends StateNotifier<TaskListState> {
     if (currentState is TaskListLoadedState) {
       final currentTasks = List<Todo>.from(currentState.tasks);
       currentTasks.sort((task1, task2) => task1.title.compareTo(task2.title));
-      state = TaskListState.loaded(tasks: currentTasks);
+      state = TaskListState.loaded(tasks: currentTasks, isSorting: true);
+    }
+  }
+
+  void refresh() async {
+    final currentState = state;
+    if (currentState is TaskListLoadedState) {
+      final currentTasks = List<Todo>.from(currentState.tasks);
+      currentTasks.sort((task1, task2) => task2.createdAt.compareTo(task1.createdAt));
+      state = TaskListState.loaded(tasks: currentTasks, isSorting: false);
     }
   }
 

@@ -6,7 +6,7 @@ part 'task_list_state.freezed.dart';
 abstract class TaskListState with _$TaskListState {
   const factory TaskListState.uninitialized() = TaskListUninitializedState;
   const factory TaskListState.loading() = TaskListLoadingState;
-  const factory TaskListState.loaded({required List<Todo> tasks}) = TaskListLoadedState;
+  const factory TaskListState.loaded({required List<Todo> tasks, @Default(false) bool isSorting}) = TaskListLoadedState;
   const factory TaskListState.loadedFailed({required String error}) = TaskListLoadedFailedState;
 }
 

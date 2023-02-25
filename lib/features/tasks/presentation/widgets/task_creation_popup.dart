@@ -22,7 +22,7 @@ class _TaskCreationPopupState extends ConsumerState<TaskCreationPopup> {
     final taskCreationState = ref.watch(provider);
     ref.listen(provider, (previous, next) {
       if (next is TaskEditorSavedState) {
-        ref.read(taskListingProvider.notifier).loadOrRefreshTask();
+        ref.read(taskListingProvider.notifier).loadTasks();
         Navigator.of(context).pop();
       }
     });

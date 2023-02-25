@@ -20,7 +20,7 @@ mixin _$TaskListState {
   TResult when<TResult extends Object?>({
     required TResult Function() uninitialized,
     required TResult Function() loading,
-    required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(List<Todo> tasks, bool isSorting) loaded,
     required TResult Function(String error) loadedFailed,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$TaskListState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
-    TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult? Function(String error)? loadedFailed,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$TaskListState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? uninitialized,
     TResult Function()? loading,
-    TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) =>
@@ -129,7 +129,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
   TResult when<TResult extends Object?>({
     required TResult Function() uninitialized,
     required TResult Function() loading,
-    required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(List<Todo> tasks, bool isSorting) loaded,
     required TResult Function(String error) loadedFailed,
   }) {
     return uninitialized();
@@ -140,7 +140,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
-    TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult? Function(String error)? loadedFailed,
   }) {
     return uninitialized?.call();
@@ -151,7 +151,7 @@ class _$TaskListUninitializedState implements TaskListUninitializedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? uninitialized,
     TResult Function()? loading,
-    TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) {
@@ -243,7 +243,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() uninitialized,
     required TResult Function() loading,
-    required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(List<Todo> tasks, bool isSorting) loaded,
     required TResult Function(String error) loadedFailed,
   }) {
     return loading();
@@ -254,7 +254,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
-    TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult? Function(String error)? loadedFailed,
   }) {
     return loading?.call();
@@ -265,7 +265,7 @@ class _$TaskListLoadingState implements TaskListLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? uninitialized,
     TResult Function()? loading,
-    TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) {
@@ -323,7 +323,7 @@ abstract class _$$TaskListLoadedStateCopyWith<$Res> {
           $Res Function(_$TaskListLoadedState) then) =
       __$$TaskListLoadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Todo> tasks});
+  $Res call({List<Todo> tasks, bool isSorting});
 }
 
 /// @nodoc
@@ -338,12 +338,17 @@ class __$$TaskListLoadedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tasks = null,
+    Object? isSorting = null,
   }) {
     return _then(_$TaskListLoadedState(
       tasks: null == tasks
           ? _value._tasks
           : tasks // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
+      isSorting: null == isSorting
+          ? _value.isSorting
+          : isSorting // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -351,7 +356,8 @@ class __$$TaskListLoadedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TaskListLoadedState implements TaskListLoadedState {
-  const _$TaskListLoadedState({required final List<Todo> tasks})
+  const _$TaskListLoadedState(
+      {required final List<Todo> tasks, this.isSorting = false})
       : _tasks = tasks;
 
   final List<Todo> _tasks;
@@ -363,8 +369,12 @@ class _$TaskListLoadedState implements TaskListLoadedState {
   }
 
   @override
+  @JsonKey()
+  final bool isSorting;
+
+  @override
   String toString() {
-    return 'TaskListState.loaded(tasks: $tasks)';
+    return 'TaskListState.loaded(tasks: $tasks, isSorting: $isSorting)';
   }
 
   @override
@@ -372,12 +382,14 @@ class _$TaskListLoadedState implements TaskListLoadedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TaskListLoadedState &&
-            const DeepCollectionEquality().equals(other._tasks, _tasks));
+            const DeepCollectionEquality().equals(other._tasks, _tasks) &&
+            (identical(other.isSorting, isSorting) ||
+                other.isSorting == isSorting));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_tasks));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_tasks), isSorting);
 
   @JsonKey(ignore: true)
   @override
@@ -391,10 +403,10 @@ class _$TaskListLoadedState implements TaskListLoadedState {
   TResult when<TResult extends Object?>({
     required TResult Function() uninitialized,
     required TResult Function() loading,
-    required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(List<Todo> tasks, bool isSorting) loaded,
     required TResult Function(String error) loadedFailed,
   }) {
-    return loaded(tasks);
+    return loaded(tasks, isSorting);
   }
 
   @override
@@ -402,10 +414,10 @@ class _$TaskListLoadedState implements TaskListLoadedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
-    TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult? Function(String error)? loadedFailed,
   }) {
-    return loaded?.call(tasks);
+    return loaded?.call(tasks, isSorting);
   }
 
   @override
@@ -413,12 +425,12 @@ class _$TaskListLoadedState implements TaskListLoadedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? uninitialized,
     TResult Function()? loading,
-    TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(tasks);
+      return loaded(tasks, isSorting);
     }
     return orElse();
   }
@@ -462,10 +474,12 @@ class _$TaskListLoadedState implements TaskListLoadedState {
 }
 
 abstract class TaskListLoadedState implements TaskListState {
-  const factory TaskListLoadedState({required final List<Todo> tasks}) =
-      _$TaskListLoadedState;
+  const factory TaskListLoadedState(
+      {required final List<Todo> tasks,
+      final bool isSorting}) = _$TaskListLoadedState;
 
   List<Todo> get tasks;
+  bool get isSorting;
   @JsonKey(ignore: true)
   _$$TaskListLoadedStateCopyWith<_$TaskListLoadedState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -539,7 +553,7 @@ class _$TaskListLoadedFailedState implements TaskListLoadedFailedState {
   TResult when<TResult extends Object?>({
     required TResult Function() uninitialized,
     required TResult Function() loading,
-    required TResult Function(List<Todo> tasks) loaded,
+    required TResult Function(List<Todo> tasks, bool isSorting) loaded,
     required TResult Function(String error) loadedFailed,
   }) {
     return loadedFailed(error);
@@ -550,7 +564,7 @@ class _$TaskListLoadedFailedState implements TaskListLoadedFailedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? uninitialized,
     TResult? Function()? loading,
-    TResult? Function(List<Todo> tasks)? loaded,
+    TResult? Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult? Function(String error)? loadedFailed,
   }) {
     return loadedFailed?.call(error);
@@ -561,7 +575,7 @@ class _$TaskListLoadedFailedState implements TaskListLoadedFailedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? uninitialized,
     TResult Function()? loading,
-    TResult Function(List<Todo> tasks)? loaded,
+    TResult Function(List<Todo> tasks, bool isSorting)? loaded,
     TResult Function(String error)? loadedFailed,
     required TResult orElse(),
   }) {
